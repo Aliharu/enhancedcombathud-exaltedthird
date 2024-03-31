@@ -4,7 +4,6 @@
   "description": "An Argon version for the Exalted Third Edition game system",
   "version": "#{VERSION}#",
   "library": "false",
-  "manifestPlusVersion": "1.2.0",
   "compatibility": {
     "minimum": 11,
     "verified": 11,
