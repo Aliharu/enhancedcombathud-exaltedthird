@@ -1,3 +1,29 @@
 {
-    "MODULE.hello": "hello"
+    "enhancedcombathud-exaltedthird" : {
+        "Titles": {
+            "Movement": "Movement",
+            "Social": "Social",
+            "Magic": "Magic",
+            "Spells": "Spells",
+            "Charms": "Charms",
+            "OpposedCharms": "Opposed Charms"
+        },
+        "Descriptions" : {
+            "FullDefense": "Spend 1 Initiative to increase defense by 2 until next turn. <br> Cannot be flurried with anything except social influence. <br> Cannot be used in crash",
+            "Aim": "Take an action aiming to attack an opponent at Medium+ range. <br>  If done at short range or twice gain +3 Dice on next attack.",
+            "Command": "Make an action on a battlegroup you are the commander/leader of or are a known hero or important person to that group. <br><br> Order: Make a ([Charisma, Appearance, or Intelligence] + War) roll against difficulty 1 to determine the battlegroup's next action and add successes to its dice pool on all actions taken on it's next turn.  <br><br> Rally: If a battlegroup has failed a rout check this action can be taken before its next turn where it will disolve,  make a ([Charisma or Appearance] + War) roll, against the same difficulty as the failed rout check. If the rally action succeeds, then the targeted battle group recovers as though it had succeeded at its rout check. <br><br> Rally For Numbers: Make a ([Charisma or Appearance] + War) roll against difficulty 1, every 2 successes restors 1 point of magnitude (this cannot heal size damage).  A battlegroup may only benefit from this once or until it takes a point of size damage.",
+            "GrappleControl": "Rolled after a successful grapple gambit to determine grapple control rounds <br> This is an opposed (Strength + [Brawl or Martial Arts]).",
+            "Rush": "Roll (Dexterity + Athletics) vs (Dexterity + Athletics) vs an opponent in short range.  If succesfull and the opponent moves on their next turn you reflexivly move 1 range band closer to them without using your turns movement action.",
+            "Disengage": "Costs 2 Initiative. <br>  Must be used to exit a range band occupied by an opponent.  If opposed roll  (Dexterity + Dodge) vs (Dexterity + Athletics) of opponents. <br> If successful move 1 range band away from the targets.  If any opponents pursue on their next turn you may reflexivly move 1 range band away without using your turns movement action.",
+            "TakeCover": "This action is used to seek cover, such as hiding behind a wall or using trees to block attacks. <br>Taking cover requires a (Dexterity + Dodge) roll.  Difficulty is set based on the terrain and availability of cover. Cover may be light, heavy, or full",
+            "RiseFromProne": "Rise From Prone, if an opponent is in close range you must make a Dexterity + Dodge) roll at Difficulty 2",
+            "Influence": "Social Influence",
+            "ReadIntentions": "Read Intentions",
+            "Rout": "When a battlegroup takes a point of size damage they make a rout check.  If they fail the battlegroup disolves.",
+            "Delay": "Delay action until later in the round, Costs 2 initiative.",
+            "EstablishSurprise": "Establish surprise through stealth, Is a combat action that cannot be flurried.",
+            "Miscellaneous": "Catch-all for a variety of possible actions <br> Defense is reduced by 1 until next turn.",
+            "DefendOther": "Defend another character, attackers must attack you to get at your ward<br> If the attacker beats your defense they may either hit you or continue to your ward with their threshhold successes.  If the attacker attacks your ward they subtract 1 dice per 2 points of your defense."
+        }
+    }
 }
