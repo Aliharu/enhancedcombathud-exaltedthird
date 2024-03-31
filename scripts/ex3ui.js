@@ -635,8 +635,8 @@ Hooks.on("argonInit", (CoreHUD) => {
 		}
 
 		get quantity() {
-			if (this.item.type === 'charm') return (Math.max(this.item.system.cost.motes, this.item.system.cost.commitmotes) || null);
-			if (this.item.type === 'spell') return (this.item.system.cost || null);
+			if (this.item?.type === 'charm') return (Math.max(this.item.system.cost.motes, this.item.system.cost.commitmotes) || null);
+			if (this.item?.type === 'spell') return (this.item.system.cost || null);
 			return null;
 		}
 
@@ -740,17 +740,27 @@ Hooks.on("argonInit", (CoreHUD) => {
 			return true;
 		}
 
-		get quantity() {
-			return 1;
-		}
+		// get quantity() {
+		// 	if(this.item.flags[ModuleName]?.actionValue === 'grappleControl') {
+		// 		return this.actor.system.grapplecontrolrounds.value;
+		// 	}
+		// 	return null;
+		// }
 
-		async _renderInner() {
-			await super._renderInner();
-			if (Number.isNumeric(this.quantity)) {
-				this.element.classList.add("has-count");
-				this.element.dataset.itemCount = this.quantity;
-			}
-		}
+		// async getData() {
+		// 	if (!this.visible) return {};
+		// 	const quantity = this.quantity;
+			
+		// 	return {
+		// 	  ...(await super.getData()),
+		// 	  quantity: quantity,
+		// 	  hasQuantity: Number.isNumeric(quantity)
+		// 	}
+		// }
+
+		// get template() {
+		// 	return `/modules/${ModuleName}/templates/ActionButton.hbs`;
+		// }
 
 		get colorScheme() {
 			switch (this.item?.flags[ModuleName]?.actiontype) {
@@ -882,7 +892,6 @@ Hooks.on("argonInit", (CoreHUD) => {
 						);
 						break;
 					case "takeCover":
-						//TODO: Special Find Cover
 						this.actor.actionRoll(
 							{
 								rollType: 'disengage',
@@ -891,11 +900,37 @@ Hooks.on("argonInit", (CoreHUD) => {
 						);
 						break;
 					case "riseFromProne":
-						//TODO : Disengage roll for opposed
-						const effectExists = this.actor.effects.find(e => e.statuses.has('prone'));
-						if (effectExists) {
-							await effectExists.delete();
-						}
+						new Dialog({
+							title: `${game.i18n.localize("Ex3.Opposed")}?`,
+							content: `
+						  	<div>Is there an enemy in close range of you that wishes to oppose your action?</div>`,
+							buttons: {
+								no: {
+									label: 'No',
+									callback: async (html) => {
+										const effectExists = this.actor.effects.find(e => e.statuses.has('prone'));
+										if (effectExists) {
+											await effectExists.delete();
+										}
+									}
+								},
+								yes: {
+									label: 'Yes',
+									callback: async (html) => {
+										this.actor.actionRoll(
+											{
+												rollType: 'disengage',
+												pool: 'movement',
+												difficulty: 2,
+											}
+										);
+									}
+								},
+							},
+							default: "no"
+						}, {
+							resizable: true, classes: ["dialog", `${game.settings.get("exaltedthird", "sheetStyle")}-background`]
+						}).render(true);
 						break;
 					case "influence":
 						this.actor.actionRoll(
@@ -914,14 +949,22 @@ Hooks.on("argonInit", (CoreHUD) => {
 						);
 						break;
 					case "establishSurprise":
-						const hidden = this.actor?.effects.find(e => e.statuses.has('Hidden'));
-						if (!hidden) {
-							if (this.actor.token || this.actor.getActiveTokens()[0]) {
-								const tokenId = this.actor.token?.id || this.actor.getActiveTokens()[0]?.id;
-								const token = canvas.tokens.placeables.filter(x => x.id === tokenId)[0];
-								await token.toggleEffect(CONFIG.statusEffects.find(e => e.id === 'Hidden'));
+						// const hidden = this.actor?.effects.find(e => e.statuses.has('Hidden'));
+						// if (!hidden) {
+						// 	if (this.actor.token || this.actor.getActiveTokens()[0]) {
+						// 		const tokenId = this.actor.token?.id || this.actor.getActiveTokens()[0]?.id;
+						// 		const token = canvas.tokens.placeables.filter(x => x.id === tokenId)[0];
+						// 		await token.toggleEffect(CONFIG.statusEffects.find(e => e.id === 'Hidden'));
+						// 	}
+						// }
+						this.actor.actionRoll(
+							{
+								rollType: 'ability',
+								pool: 'movement',
+								ability: 'stealth',
+								attribute: 'dexterity'
 							}
-						}
+						);
 						break;
 					case "delay":
 						if (game.combat && (this.actor.token || this.actor.getActiveTokens()[0])) {

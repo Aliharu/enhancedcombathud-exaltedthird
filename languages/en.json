@@ -19,7 +19,7 @@
             "RiseFromProne": "Rise From Prone, if an opponent is in close range you must make a Dexterity + Dodge) roll at Difficulty 2",
             "Influence": "Social Influence",
             "ReadIntentions": "Read Intentions",
-            "Rout": "When a battlegroup takes a point of size damage they make a rout check.  If they fail the battlegroup disolves.",
+            "Rout": "When a battlegroup takes a point of size damage they make a rout check.  If they fail the battlegroup disolves at the start of its next turn unless its commander can make a successful Rally check.",
             "Delay": "Delay action until later in the round, Costs 2 initiative.",
             "EstablishSurprise": "Establish surprise through stealth, Is a combat action that cannot be flurried.",
             "Miscellaneous": "Catch-all for a variety of possible actions <br> Defense is reduced by 1 until next turn.",
