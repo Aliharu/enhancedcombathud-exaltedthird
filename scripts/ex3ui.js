@@ -888,6 +888,7 @@ Hooks.on("argonInit", (CoreHUD) => {
 							{
 								rollType: 'disengage',
 								pool: 'movement',
+								initiativeCost: game.settings.get("exaltedthird", "disengageCost") ? 2 : 0
 							}
 						);
 						break;
