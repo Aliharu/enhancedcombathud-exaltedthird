@@ -7,11 +7,29 @@ Hooks.on("argonInit", (CoreHUD) => {
 
 	registerEX3ECHSItems();
 
+	class Ex3Effect extends ARGON.PORTRAIT.Effect {
+		constructor(...args) {
+			super(...args);
+		}
+
+		async _onLeftClick(event) {
+			if(this.effect.type === 'item') {
+				this.effect.sheet.render(true);
+			} else if(this.effect.parent?.parentCollection === 'items') {
+				this.effect.parent.sheet.render(true);
+			}
+		}
+	}
+
 	class Ex3PortraitPanel extends ARGON.PORTRAIT.PortraitPanel {
 		constructor(...args) {
 			super(...args);
 
 			this.wasDead = {};
+		}
+
+		get effectClass() {
+			return Ex3Effect;
 		}
 
 		get description() {
@@ -42,6 +60,21 @@ Hooks.on("argonInit", (CoreHUD) => {
 					onClick: (e) => ui.ARGON.toggleMinimize()
 				}
 			];
+		}
+
+		async getEffects() {
+			const effects = [];
+			for(const activeCharm of this.actor.items.filter(item => item.system.active)) {
+				if(!activeCharm.disabled) {
+					effects.push({type: 'item', img: activeCharm.img, name: activeCharm.name, tooltip: await TextEditor.enrichHTML(activeCharm.system.description), sheet: activeCharm.sheet});
+				}
+			}
+			for(const effect of this.actor.allApplicableEffects()) {
+				if(!effect.disabled) {
+					effects.push({type: 'effect', img: effect.img, name: effect.name, tooltip: await TextEditor.enrichHTML(effect.description), parent: effect.parent});
+				}
+			}
+			return effects;
 		}
 
 		async getsideStatBlocks() {
@@ -691,8 +724,8 @@ Hooks.on("argonInit", (CoreHUD) => {
 							data: this.item,
 							actorId: this.actor.id,
 						});
-						if (game.rollForm) {
-							game.rollForm.addOpposingCharm(this.item);
+						if (game.opposingCharmForm) {
+							game.opposingCharmForm.addOpposingCharm(this.item);
 						}
 					}
 				}
@@ -750,7 +783,7 @@ Hooks.on("argonInit", (CoreHUD) => {
 		// async getData() {
 		// 	if (!this.visible) return {};
 		// 	const quantity = this.quantity;
-			
+
 		// 	return {
 		// 	  ...(await super.getData()),
 		// 	  quantity: quantity,
