@@ -31,7 +31,8 @@
         "compatibility": [
           {
             "minimum": "2.8.1",
-            "verified": "2.8.1"
+            "verified": "2.8.1",
+            "maximum": "3.4.6"
           }
         ]
       }
