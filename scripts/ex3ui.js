@@ -682,7 +682,7 @@ Hooks.on("argonInit", (CoreHUD) => {
 		async _onLeftClick(event) {
 			if (this.item?.type === 'weapon') {
 				const template = "modules/enhancedcombathud-exaltedthird/templates/attack.hbs";
-				const html = await renderTemplate(template, { showFullAttacks: game.settings.get("exaltedthird", "showFullAttacks") });
+				const html = await renderTemplate(template);
 
 				new Dialog({
 					title: game.i18n.localize("Ex3.Attack"),
@@ -693,7 +693,7 @@ Hooks.on("argonInit", (CoreHUD) => {
 					render: (html) => {
 						html.find('.attack').click(ev => {
 							let attackType = $(ev.target).attr("data-roll-type");
-							this.actor.actionRoll({ rollType: attackType, weapon: this.item.system });
+							this.actor.actionRoll({ rollType: 'accuracy', attackType: attackType, weapon: this.item.system });
 							html.find('.closeImportItem').trigger('click');
 						});
 
