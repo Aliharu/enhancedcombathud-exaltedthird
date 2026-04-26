@@ -4,7 +4,7 @@ async function getTooltipDetails(item) {
     let title, description, subtitle, details, properties, propertiesLabel;
 
     title = item.name;
-    description = await TextEditor.enrichHTML(item.system.description);
+    description = await foundry.applications.ux.TextEditor.implementation.enrichHTML(item.system.description);
     details = [];
 
     if(item.type === 'weapon') {

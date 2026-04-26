@@ -66,12 +66,12 @@ Hooks.on("argonInit", (CoreHUD) => {
 			const effects = [];
 			for(const activeCharm of this.actor.items.filter(item => item.system.active)) {
 				if(!activeCharm.disabled) {
-					effects.push({type: 'item', img: activeCharm.img, name: activeCharm.name, tooltip: await TextEditor.enrichHTML(activeCharm.system.description), sheet: activeCharm.sheet});
+					effects.push({type: 'item', img: activeCharm.img, name: activeCharm.name, tooltip: await foundry.applications.ux.TextEditor.implementation.enrichHTML(activeCharm.system.description), sheet: activeCharm.sheet});
 				}
 			}
 			for(const effect of this.actor.allApplicableEffects()) {
 				if(!effect.disabled) {
-					effects.push({type: 'effect', img: effect.img, name: effect.name, tooltip: await TextEditor.enrichHTML(effect.description), parent: effect.parent});
+					effects.push({type: 'effect', img: effect.img, name: effect.name, tooltip: await foundry.applications.ux.TextEditor.implementation.enrichHTML(effect.description), parent: effect.parent});
 				}
 			}
 			return effects;
@@ -867,7 +867,6 @@ Hooks.on("argonInit", (CoreHUD) => {
 						}, {
 							resizable: true, classes: ["dialog", `${game.settings.get("exaltedthird", "sheetStyle")}-background`]
 						}).render(true);
-						console.log("Full Defense");
 						break;
 					case "aim":
 						const aim = this.actor?.effects.find(e => e.statuses.has('aiming'));
